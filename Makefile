@@ -17,7 +17,7 @@
 .PHONY: all build download push run pull share copy clean checksum
 
 MAJOR := 0
-MINOR := 20
+MINOR := 21
 PATCH := 0
 LABEL :=
 IMAGE_KERNEL_VERSION?= $(MAJOR).$(MINOR).$(PATCH)$(LABEL)
@@ -30,7 +30,7 @@ TOOLCHAIN_TAG ?= 0.17.0
 
 DEP_DIR := dep
 
-KERNEL_VERSION ?= 6.5.13-ctsi-1
+KERNEL_VERSION ?= 6.5.13-ctsi-2-uio-test1
 KERNEL_SRCPATH := $(DEP_DIR)/linux-${KERNEL_VERSION}.tar.gz
 
 OPENSBI_VERSION ?= 1.3.1-ctsi-2

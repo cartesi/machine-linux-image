@@ -62,12 +62,13 @@ jobs:
           cache-from: type=gha,scope=regular
           cache-to: type=gha,mode=max,scope=regular
           project: ${{ vars.DEPOT_PROJECT }}
+          token: ${{ secrets.DEPOT_TOKEN }}
 
       - name: Export linux.bin artifact
         run: make copy
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           path: artifacts/*
 
@@ -106,3 +107,4 @@ jobs:
           cache-from: type=gha,scope=regular
           cache-to: type=gha,mode=max,scope=regular
           project: ${{ vars.DEPOT_PROJECT }}
+          token: ${{ secrets.DEPOT_TOKEN }}
