@@ -14,9 +14,7 @@
 # limitations under the License.
 #
 
-ARG TOOLCHAIN_REPOSITORY=cartesi/toolchain
-ARG TOOLCHAIN_VERSION=latest
-FROM ${TOOLCHAIN_REPOSITORY}:${TOOLCHAIN_VERSION}
+FROM debian:trixie-20250811
 
 ARG KERNEL_VERSION=0.0.0-ctsi-y
 ARG KERNEL_TIMESTAMP="Thu, 01 Jan 1970 00:00:00 +0000"
@@ -24,13 +22,52 @@ ARG OPENSBI_VERSION=0.0.0-ctsi-y
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-ENV OLDPATH=$PATH
-
+ENV BASE=/opt/riscv
 ENV BUILD_BASE=$BASE/kernel
+
+# install cross-compiler and build dependencies
+# ------------------------------------------------------------------------------
+RUN apt-get update && \
+  DEBIAN_FRONTEND="noninteractive" apt-get install --no-install-recommends -y \
+    bc \
+    bison \
+    build-essential \
+    flex \
+    gcc-riscv64-linux-gnu \
+    python3 \
+    genext2fs \
+    libc6-dev-riscv64-cross \
+    rsync \
+    xz-utils \
+  && \
+  rm -rf /var/lib/apt/lists/*
+
+# build and install xgenext2fs
+# ------------------------------------------------------------------------------
+RUN apt-get update && \
+  DEBIAN_FRONTEND="noninteractive" apt-get install --no-install-recommends -y \
+    autoconf \
+    automake \
+    ca-certificates \
+    libarchive-dev \
+    wget \
+  && \
+  wget -q https://github.com/cartesi/genext2fs/archive/refs/tags/v1.5.6.tar.gz && \
+  echo "34bfc26a037def23b85b676912462a3d126a87ef15c66c212b3500650da44f9e  v1.5.6.tar.gz" | sha256sum -c - && \
+  tar -xzf v1.5.6.tar.gz && \
+  cd genext2fs-1.5.6 && \
+  ./autogen.sh && \
+  ./configure && \
+  make && \
+  make install && \
+  cd .. && \
+  rm -rf genext2fs-1.5.6 v1.5.6.tar.gz && \
+  rm -rf /var/lib/apt/lists/*
 
 # setup dirs
 # ------------------------------------------------------------------------------
 RUN \
+  useradd developer && \
   mkdir -p ${BUILD_BASE}/artifacts && \
   chown -R developer:developer ${BUILD_BASE} && \
   chmod go+w ${BUILD_BASE}

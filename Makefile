@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-.PHONY: all build download push run pull share copy clean checksum
+.PHONY: all build download push pull copy clean checksum
 
 MAJOR := 0
 MINOR := 21
@@ -25,8 +25,6 @@ IMAGE_KERNEL_VERSION?= $(MAJOR).$(MINOR).$(PATCH)$(LABEL)
 UNAME:=$(shell uname)
 
 TAG ?= devel
-TOOLCHAIN_REPOSITORY ?= cartesi/toolchain
-TOOLCHAIN_TAG ?= 0.17.0
 
 DEP_DIR := dep
 
@@ -35,8 +33,6 @@ KERNEL_SRCPATH := $(DEP_DIR)/linux-${KERNEL_VERSION}.tar.gz
 
 OPENSBI_VERSION ?= 1.3.1-ctsi-2
 OPENSBI_SRCPATH := $(DEP_DIR)/opensbi-${OPENSBI_VERSION}.tar.gz
-
-CONTAINER_BASE := /opt/cartesi/kernel
 
 IMG ?= cartesi/linux-kernel:$(TAG)
 BASE:=/opt/riscv
@@ -51,14 +47,6 @@ BUILD_ARGS :=
 
 ifneq ($(IMAGE_KERNEL_VERSION),)
 BUILD_ARGS += --build-arg IMAGE_KERNEL_VERSION=$(IMAGE_KERNEL_VERSION)
-endif
-
-ifneq ($(TOOLCHAIN_REPOSITORY),)
-BUILD_ARGS += --build-arg TOOLCHAIN_REPOSITORY=$(TOOLCHAIN_REPOSITORY)
-endif
-
-ifneq ($(TOOLCHAIN_TAG),)
-BUILD_ARGS += --build-arg TOOLCHAIN_VERSION=$(TOOLCHAIN_TAG)
 endif
 
 ifneq ($(KERNEL_VERSION),)
@@ -85,28 +73,11 @@ push:
 pull:
 	docker pull $(IMG)
 
-run:
-	docker run --hostname toolchain-env -it --rm \
-		-e USER=$$(id -u -n) \
-		-e GROUP=$$(id -g -n) \
-		-e UID=$$(id -u) \
-		-e GID=$$(id -g) \
-		-v `pwd`:$(CONTAINER_BASE) \
-		-w $(CONTAINER_BASE) \
-		$(IMG) $(CONTAINER_COMMAND)
-
-run-as-root:
-	docker run --hostname toolchain-env -it --rm \
-		-v `pwd`:$(CONTAINER_BASE) \
-		$(IMG) $(CONTAINER_COMMAND)
-
 env:
 	@echo KERNEL_VERSION="$(KERNEL_VERSION)"
 	@echo KERNEL_TIMESTAMP="$(KERNEL_TIMESTAMP)"
 	@echo IMAGE_KERNEL_VERSION="$(IMAGE_KERNEL_VERSION)"
 	@echo OPENSBI_VERSION="$(OPENSBI_VERSION)"
-	@echo TOOLCHAIN_REPOSITORY="$(TOOLCHAIN_REPOSITORY)"
-	@echo TOOLCHAIN_VERSION="$(TOOLCHAIN_TAG)"
 	@make -srf build.mk \
 		KERNEL_VERSION=$(KERNEL_VERSION) \
 		KERNEL_TIMESTAMP="$(KERNEL_TIMESTAMP)" \

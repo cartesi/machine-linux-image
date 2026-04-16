@@ -53,8 +53,6 @@ jobs:
           push: false
           load: true
           build-args: |
-            TOOLCHAIN_REPOSITORY=${{ env.TOOLCHAIN_REPOSITORY }}
-            TOOLCHAIN_VERSION=${{ env.TOOLCHAIN_VERSION }}
             KERNEL_VERSION=${{ env.KERNEL_VERSION }}
             KERNEL_TIMESTAMP=${{ env.KERNEL_TIMESTAMP }}
             IMAGE_KERNEL_VERSION=${{ env.IMAGE_KERNEL_VERSION }}
@@ -98,8 +96,6 @@ jobs:
           push: true
           load: false
           build-args: |
-            TOOLCHAIN_REPOSITORY=${{ env.TOOLCHAIN_REPOSITORY }}
-            TOOLCHAIN_VERSION=${{ env.TOOLCHAIN_VERSION }}
             KERNEL_VERSION=${{ env.KERNEL_VERSION }}
             KERNEL_TIMESTAMP=${{ env.KERNEL_TIMESTAMP }}
             IMAGE_KERNEL_VERSION=${{ env.IMAGE_KERNEL_VERSION }}

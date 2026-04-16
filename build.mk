@@ -1,4 +1,4 @@
-TOOLCHAIN_PREFIX    := riscv64-cartesi-linux-gnu
+TOOLCHAIN_PREFIX    := riscv64-linux-gnu
 
 OPENSBI_DIR        := work/opensbi
 OPENSBI_BUILD_DIR  := $(OPENSBI_DIR)/build
@@ -113,9 +113,5 @@ clone:
 	git clone --depth 1 --branch $(OPENSBI_BRANCH) \
 		git@github.com:cartesi/opensbi.git $(OPENSBI_DIR) || \
 		cd $(OPENSBI_DIR) && git pull
-
-run: IMG=cartesi/toolchain:devel
-run:
-	$(MAKE) run IMG=$(IMG)
 
 .PHONY: $(OPENSBI_BUILD_DIR)/Makefile $(LINUX_DIR)/vmlinux $(ARTIFACTS)
