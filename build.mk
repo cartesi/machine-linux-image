@@ -94,13 +94,13 @@ clean:
 	@rm -rf $(OPENSBI_BUILD_DIR)
 
 run-selftest:
-	cartesi-machine.lua --rollup \
-		--append-rom-bootargs=debug \
-		--remote-address=localhost:5001 \
-		--checkin-address=localhost:5002 \
+	cartesi-machine.lua \
+		--append-bootargs=debug \
 		--ram-image=`realpath $(LINUX)` \
-		--flash-drive=label:selftest,filename:`realpath $(SELFTEST)` \
-		-- $(CMD)
+		--flash-drive=label:selftest,data_filename:`realpath $(SELFTEST)` \
+		--user=root \
+		--workdir=/mnt/selftest \
+		-- ./run_kselftest.sh
 
 # clone (for non CI environment)
 # ------------------------------------------------------------------------------
