@@ -1,12 +1,12 @@
-# Cartesi Machine Image Linux Kernel
+# Cartesi Machine Linux Image
 
-The Cartesi Image Linux Kernel is the repository that provides the Docker configuration files to build the Linux kernel `linux.bin` image. This is used to run a Linux environment on the Cartesi Machine Emulator reference implementation. The current image is based on the `cartesi/toolchain` that uses Ubuntu 22.04. The `linux.bin` is built from the Linux 5.5.x source, targeting the RISC-V RV64IMA with ABI LP64 architecture.
+The Cartesi Machine Linux Image is the repository that provides the Docker configuration files to build the Linux kernel `linux.bin` image. This is used to run a Linux environment on the Cartesi Machine Emulator reference implementation. The `linux.bin` is built from the Linux source, targeting `riscv64`.
 
 ## Getting Started
 
 ### Requirements
 
-- Docker 18.x
+- Docker >= 18.x
 - GNU Make >= 3.81
 
 ### Build
@@ -34,7 +34,7 @@ $ make -f build.mk
 ```
 
 There is also a `run-selftest` target to run the kernel tests.
-To use it, start a `remote-cartesi-machine` process from the emulator repository, then run:
+To use it, run:
 
 ```bash
 $ make -f build.mk run-selftest
@@ -44,39 +44,8 @@ $ make -f build.mk run-selftest
 
 The following options are available as `make` targets:
 
-- **build**: builds the docker image-kernel image
-- **copy**: builds the imgae-kernel image and copy it's artifact to the host
-- **run**: runs the generated image with current user UID and GID
-- **run-as-root**: runs the generated image as root
-- **push**: pushes the image to the registry repository
-
-#### Makefile container options
-
-You can pass the following variables to the make target if you wish to use different docker image tags.
-
-- TAG: image-roofs image tag
-- TOOLCHAIN\_TAG: toolchain image tag
-
-```
-$ make build TAG=mytag
-$ make build TOOLCHAIN_TAG=mytag
-```
-
-It's also useful if you want to use pre-built images:
-
-```
-$ make run TAG=latest
-```
-
-## Usage
-
-The purpose of this image is to build the `linux.bin` artifact so it can be used with the emulator. For instructions on how to do that, please see the emulator documentation.
-
-If you want to play around on the environment you can also do:
-
-```
-$ make run
-```
+- **build**: builds the docker linux-kernel image
+- **copy**: builds the docker linux-kernel image and copy it's artifact to the host
 
 ## Contributing
 
@@ -86,8 +55,7 @@ Please note we have a [Code of Conduct](CODE_OF_CONDUCT.md), please follow it in
 
 ## Authors
 
-* *Diego Nehab*
-* *Victor Fusco*
+See [AUTHORS](AUTHORS) file.
 
 ## License
 

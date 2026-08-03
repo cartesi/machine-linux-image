@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-.PHONY: all build download push pull copy clean checksum
+.PHONY: all build env download copy clean distclean depclean checksum
 
 MAJOR := 0
 MINOR := 21
@@ -66,12 +66,6 @@ all: build copy
 
 build: download
 	docker build -t $(IMG) $(BUILD_ARGS) .
-
-push:
-	docker push $(IMG)
-
-pull:
-	docker pull $(IMG)
 
 env:
 	@echo KERNEL_VERSION="$(KERNEL_VERSION)"
