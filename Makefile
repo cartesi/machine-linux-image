@@ -28,7 +28,7 @@ TAG ?= devel
 
 DEP_DIR := dep
 
-KERNEL_VERSION ?= 6.5.13-ctsi-2-uio-test1
+KERNEL_VERSION ?= 6.5.13-ctsi-2
 KERNEL_SRCPATH := $(DEP_DIR)/linux-${KERNEL_VERSION}.tar.gz
 
 OPENSBI_VERSION ?= 1.3.1-ctsi-2

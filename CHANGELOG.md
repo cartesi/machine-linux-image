@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+## [0.21.0] - 2026-08-03
+### Changed
+- Updated Linux Kernel to v6.5.13-ctsi-2
+- Removed image-toolchain dependency
+
+### Added
+- Enabled UIO to support NVRAM memory ranges
+
 ## [0.20.0] - 2024-04-15
 ### Changed
 - Updated Linux Kernel to v6.5.13-ctsi-1
@@ -113,7 +121,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [0.2.0]
 - [0.1.0]
 
-[Unreleased]: https://github.com/cartesi/image-kernel/compare/v0.20.0...HEAD
+[Unreleased]: https://github.com/cartesi/image-kernel/compare/v0.21.0...HEAD
+[0.21.0]: https://github.com/cartesi/image-kernel/releases/tag/v0.21.0
 [0.20.0]: https://github.com/cartesi/image-kernel/releases/tag/v0.20.0
 [0.19.1]: https://github.com/cartesi/image-kernel/releases/tag/v0.19.1
 [0.19.0]: https://github.com/cartesi/image-kernel/releases/tag/v0.19.0
