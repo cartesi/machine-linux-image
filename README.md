@@ -1,5 +1,11 @@
 # Cartesi Machine Linux Image
 
+> [!WARNING]
+> **This repository is no longer maintained.**
+> Starting with machine-emulator v0.22.0, Linux kernel images for the Cartesi Machine are built and released by [cartesi/linux](https://github.com/cartesi/linux/releases).
+> Existing releases here remain available for older projects.
+> Do not use this repository for new development.
+
 The Cartesi Machine Linux Image is the repository that provides the Docker configuration files to build the Linux kernel `linux.bin` image. This is used to run a Linux environment on the Cartesi Machine Emulator reference implementation. The `linux.bin` is built from the Linux source, targeting `riscv64`.
 
 ## Getting Started
